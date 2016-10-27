@@ -66,7 +66,6 @@ $this->title = "User Roles";
                             // necessary for update action.
                             if (! $each->isNewRecord) {
                                 echo Html::activeHiddenInput($each, "[{$indexItemChild}]name");
-                                echo Html::HiddenInput( "old_role",$each->name);
                             }
                         ?>
                         <?=$form->field($each, "[{$indexItemChild}]name")->dropdownList(

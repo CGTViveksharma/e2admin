@@ -14,7 +14,7 @@ class m161027_104152_create_settings_table extends Migration
     {
         $this->createTable('settings', [
             'id' => $this->primaryKey(),
-            'theme' => $this->string(10),
+            'theme' => $this->string(20),
             'paypal_id' => $this->string(),
             'from_email' => $this->string(),
             'contact_email' => $this->string(),

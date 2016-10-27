@@ -144,8 +144,8 @@ AppAsset::register($this);
           </a>
         </li>
         <li class=" treeview">
-          <a href="<?=Url::toRoute('email/index')?>">
-            <i class="fa fa-users"></i> <span>Email Manager</span>
+          <a href="<?=Url::toRoute('emails/index')?>">
+            <i class="fa fa-envelope"></i> <span>Email Manager</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -153,7 +153,7 @@ AppAsset::register($this);
         </li>
         <li class=" treeview">
           <a href="<?=Url::toRoute('settings/index')?>">
-            <i class="fa fa-users"></i> <span>Settings</span>
+            <i class="fa fa-cog"></i> <span>Settings</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>

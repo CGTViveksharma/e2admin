@@ -28,8 +28,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
-        'layout' => '{items}{pager}',
-        // 'pager' => ['class' => 'pull-right'],
         'columns' => [
             'username',
             'email:email',
