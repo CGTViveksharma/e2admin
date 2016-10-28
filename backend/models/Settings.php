@@ -9,8 +9,13 @@ use Yii;
  *
  * @property integer $id
  * @property string $theme
+ * @property string $paypal_id
+ * @property string $from_email
+ * @property string $contact_email
+ * @property string $facebook_url
+ * @property string $google_plus_url
+ * @property string $twitter_url
  *
- * @property Themes $theme0
  */
 class Settings extends \yii\db\ActiveRecord
 {
@@ -28,10 +33,8 @@ class Settings extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['theme'], 'required'],
-            [['theme'], 'string', 'max' => 50],
-            [['theme'], 'unique'],
-            [['theme'], 'exist', 'skipOnError' => true, 'targetClass' => Themes::className(), 'targetAttribute' => ['theme' => 'path_name']],
+            [['theme'], 'string', 'max' => 10],
+            [['paypal_id', 'from_email', 'contact_email', 'facebook_url', 'google_plus_url', 'twitter_url'], 'string', 'max' => 255],
         ];
     }
 
@@ -43,14 +46,12 @@ class Settings extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'theme' => 'Theme',
+            'paypal_id' => 'Paypal ID',
+            'from_email' => 'From Email',
+            'contact_email' => 'Contact Email',
+            'facebook_url' => 'Facebook Url',
+            'google_plus_url' => 'Google Plus Url',
+            'twitter_url' => 'Twitter Url',
         ];
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getTheme0()
-    {
-        return $this->hasOne(Themes::className(), ['path_name' => 'theme']);
     }
 }

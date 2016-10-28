@@ -14,7 +14,7 @@ class Theming extends \yii\base\Component {
             $query = new Query;
             $theme = $query->select('theme')->from('settings')->one();
             
-            if ($theme['theme'] == 'default') {
+            if ($theme['theme'] == 'basic') {
                 $options = [
                     'pathMap' => ['@app/views' => '@web/views/'],
                     'baseUrl' => '@web',

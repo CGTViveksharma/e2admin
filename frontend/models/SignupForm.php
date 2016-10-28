@@ -1,9 +1,12 @@
 <?php
 namespace frontend\models;
+
 use Yii;
 use yii\base\Model;
 use common\models\User;
 use yii\db\Query;
+use yii\base\Model;
+use common\models\User;
 
 /**
  * Signup form
@@ -37,7 +40,6 @@ class SignupForm extends Model
 
             ['password', 'required'],
             ['password', 'string', 'min' => 6],
-            
         ];
     }
 
@@ -59,8 +61,6 @@ class SignupForm extends Model
         $user->email = $this->email;
         $user->setPassword($this->password);
         $user->generateAuthKey();
-        $user->save();
-        return $user;
-        
+        return $user->save() ? $user : null;
     }
 }

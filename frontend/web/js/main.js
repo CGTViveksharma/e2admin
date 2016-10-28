@@ -69,4 +69,6 @@ jQuery(function($) {'use strict',
 	});
 
 	$('.textarea').wysihtml5();	
+
+	jQuery('form').attr('action', jQuery('form').attr('data-url'));
 });

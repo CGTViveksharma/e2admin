@@ -19,9 +19,7 @@
         "yiisoft/yii2-bootstrap": "~2.0.0",
         "yiisoft/yii2-swiftmailer": "~2.0.0",
         "wbraganca/yii2-dynamicform": "*",
-        "2amigos/yii2-ckeditor-widget": "*",
-        "franciscomaya/yii2-sceditor": "dev-master",
-        "2amigos/yii2-tinymce-widget": "*"
+        "yiidoc/yii2-redactor": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

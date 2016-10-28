@@ -49,17 +49,15 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                'admin' => 'admin/site/login'
+                'admin' => 'admin/site/login',
             ],
         ],
-        /*
-        'urlManager' => [
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
-            'rules' => [
-            ],
-        ],
-        */
     ],
+    'modules' => [
+          'redactor' => 'yii\redactor\RedactorModule',
+          'class' => 'yii\redactor\RedactorModule',
+          'uploadDir' => '@webroot/uploads',
+          'uploadUrl' => '@web/uploads',
+      ],
     'params' => $params,
 ];

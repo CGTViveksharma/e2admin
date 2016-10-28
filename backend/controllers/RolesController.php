@@ -76,11 +76,11 @@ class RolesController extends \yii\web\Controller
             $valid = $modelAuthItem->validate();
 
             if ($valid) {
-              
+
                         $old_role = Yii::$app->request->post('old_role');
                         //update user role
                         $authManager = Yii::$app->authManager;
-                        $authManager->getRole($old_role);
+                        
                         //create an instance of new role item 
                         $new_role = new yii\rbac\Item;
                         $new_role->name = $modelAuthItem->name;
@@ -88,14 +88,24 @@ class RolesController extends \yii\web\Controller
                         $new_role->type = 1;
                         //update role item with old name and new role object
                         if (Yii::$app->authManager->update($old_role,$new_role)) {
+                            $AuthItemChilds =  Yii::$app->request->post('AuthItemChild');
+                            $authManager->removeChildren($new_role);
+                            foreach ($AuthItemChilds as $each) {
+                                   $permission = $authManager->getPermission($each['name']);
+                                   $authManager->addChild($new_role,$permission);
+                            }
                             Yii::$app->session->setFlash('updatedPermission','Success! Permission updated.');
                         }
-            }
+                         return $this->redirect(['index']);
+                        
+        }
         }
 
+        //get auth item child model rows related to auth item model
+        $authItemChild =  AuthItemChild::find()->select('auth_item.name')->rightJoin('auth_item', '`auth_item_child`.`child` = `auth_item`.`name`')->where(['auth_item_child.parent' => $role])->all();
         $data =[
             'modelAuthItem' => $modelAuthItem->find()->where(['name'=>$role])->one(),
-            'modelAuthItemChild' => AuthItem::find()->select('auth_item.name')->leftJoin('auth_item_child', '`auth_item_child`.`child` = `auth_item`.`name`')->where(['auth_item_child.parent' => $role])->all(),
+            'modelAuthItemChild' => !empty($authItemChild) ? $authItemChild : [new AuthItemChild],
             'permissionsList' => AuthItem::find()->where(['type' => 2])->all()
         ];
         
@@ -134,13 +144,6 @@ class RolesController extends \yii\web\Controller
                             if ($flag === false) {
                                 break;
                             }
-
-                            // //save new permission in auth item model
-                            // $modelAuthPermission = new AuthItem();
-                            // $modelAuthPermission->name = $each->permission_name;
-                            // $modelAuthPermission->description = $each->permission_desc;
-                            // $modelAuthPermission->type = 2;
-                            // $modelAuthPermission->save();
 
                             //save auth item child model
                             $each->parent = $modelAuthItem->name;

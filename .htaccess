@@ -20,9 +20,14 @@ RewriteRule ^css/(.*)$ frontend/web/css/$1 [L]
 RewriteRule ^images/(.*)$ frontend/web/images/$1 [L]
 RewriteRule ^js/(.*)$ frontend/web/js/$1 [L]
 RewriteRule ^uploads/(.*)$ frontend/web/uploads/$1 [L]
+<<<<<<< HEAD
 RewriteRule ^theme2/(.*)$ frontend/web/theme2/$1 [L]
 
 RewriteCond %{REQUEST_URI} !^/e2admin/(frontend|backend)/web/(assets|css|images|js|uploads|theme2)/  
+=======
+
+RewriteCond %{REQUEST_URI} !^/e2admin/(frontend|backend)/web/(assets|css|images|js|uploads)/  
+>>>>>>> e9af7b5c01c1619f739c933137f5f30a54063d33
 RewriteCond %{REQUEST_URI} !index.php
 RewriteCond %{REQUEST_FILENAME} !-f [OR]
 RewriteCond %{REQUEST_FILENAME} !-d
