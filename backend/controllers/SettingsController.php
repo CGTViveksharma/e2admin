@@ -3,7 +3,7 @@
 namespace backend\controllers;
 
 use Yii;
-use backend\models\Settings;
+use common\models\Settings;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -19,11 +19,22 @@ class SettingsController extends Controller
     public function behaviors()
     {
         return [
-        'verbs' => [
-        'class' => VerbFilter::className(),
-        'actions' => [
-        'delete' => ['POST'],
-        ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['POST'],
+                ],
+            ],
+         'access' => [
+                'class' => \yii\filters\AccessControl::className(),
+                'only' => ['index','create','update','view','delete'],
+                'rules' => [
+                    // admin and sub_admin  is allowed for all actions
+                    [
+                        'allow' => true,
+                        'roles' => ['admin','sub_admin'],
+                    ],
+                ],
         ],
         ];
     }
@@ -37,6 +48,7 @@ class SettingsController extends Controller
         $model = !empty(Settings::find()->one()) ?  Settings::find()->one() : new Settings();
         
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->helper->setSuccessMessage('Success! settings saved.');
             $this->redirect('index');
         }
         else{

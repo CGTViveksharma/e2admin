@@ -3,8 +3,8 @@
 namespace backend\controllers;
 
 use Yii;
-use backend\models\Pages;
-use backend\models\PagesSearch;
+use common\models\Pages;
+use common\models\PagesSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -24,6 +24,24 @@ class PagesController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
+                ],
+            ],
+             'access' => [
+                'class' => \yii\filters\AccessControl::className(),
+                'only' => ['index','create','update','view','delete'],
+                'rules' => [
+                    // admin is allowed for all actions
+                    [
+                        'allow' => true,
+                        'actions' => ['index','create','update','view','delete'],
+                        'roles' => ['admin'],
+                    ],
+                    // sub admin is allowed to all actions except delete
+                     [
+                        'allow' => true,
+                        'actions' => ['index','create','update','view'],
+                        'roles' => ['sub_admin'],
+                    ],
                 ],
             ],
         ];

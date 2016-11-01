@@ -28,9 +28,10 @@ class RolesController extends \yii\web\Controller
                         'class' => \yii\filters\AccessControl::className(),
                         'only' => ['index','create','update','view','delete'],
                         'rules' => [
-                            // allow authenticated users
+                            // allow only admin user
                             [
                                 'allow' => true,
+                                'actions' => ['index','create','update','view','delete'],
                                 'roles' => ['admin'],
                             ],
                             // everything else is denied
@@ -77,27 +78,34 @@ class RolesController extends \yii\web\Controller
 
             if ($valid) {
 
+                        //get existing role
                         $old_role = Yii::$app->request->post('old_role');
-                        //update user role
+
+                        //create an instanceof authManager
                         $authManager = Yii::$app->authManager;
+
+                        //create an instance of old role 
+                        $new_role = $authManager->getRole($old_role);
                         
-                        //create an instance of new role item 
-                        $new_role = new yii\rbac\Item;
-                        $new_role->name = $modelAuthItem->name;
-                        $new_role->description = $modelAuthItem->description;
-                        $new_role->type = 1;
-                        //update role item with old name and new role object
-                        if (Yii::$app->authManager->update($old_role,$new_role)) {
-                            $AuthItemChilds =  Yii::$app->request->post('AuthItemChild');
-                            $authManager->removeChildren($new_role);
-                            foreach ($AuthItemChilds as $each) {
-                                   $permission = $authManager->getPermission($each['name']);
-                                   $authManager->addChild($new_role,$permission);
+                        if(!empty($new_role)){
+                            // update the role with new properties;
+                            $new_role->name = $modelAuthItem->name;
+                            $new_role->description = $modelAuthItem->description;
+
+                            //update role item while passing old name and new role object
+                            if ($authManager->update($old_role,$new_role)) {
+                                $AuthItemChilds =  Yii::$app->request->post('AuthItemChild');
+                                $authManager->removeChildren($new_role);
+                                foreach ($AuthItemChilds as $each) {
+                                    if(!empty($each['name'])){
+                                        $permission = $authManager->getPermission($each['name']);
+                                        $authManager->addChild($new_role,$permission);
+                                    }
+                                }
+                                Yii::$app->session->setFlash('success_message','Success! Role updated.');
                             }
-                            Yii::$app->session->setFlash('updatedPermission','Success! Permission updated.');
+                            return $this->redirect(['index']);
                         }
-                         return $this->redirect(['index']);
-                        
         }
         }
 
@@ -123,7 +131,6 @@ class RolesController extends \yii\web\Controller
     {
         $modelAuthItem = new AuthItem;
         $modelAuthItemChild = [new AuthItemChild];
-
         if ($modelAuthItem->load(Yii::$app->request->post())) {
 
             //create multiple instances of auth item child model
@@ -140,24 +147,27 @@ class RolesController extends \yii\web\Controller
                 try {
                     if ($flag = $modelAuthItem->save(false)) {
                         foreach ($modelAuthItemChild as $index => $each) {
+                            if($each->validate()){
 
-                            if ($flag === false) {
-                                break;
+                                if ($flag === false) {
+                                    break;
+                                }
+
+                                //save auth item child model
+                                $each->parent = $modelAuthItem->name;
+                                $each->child = $each->name;
+
+                                if (!($flag = $each->save(false))) {
+                                    break;
+                                }
+
                             }
-
-                            //save auth item child model
-                            $each->parent = $modelAuthItem->name;
-                            $each->child = $each->name;
-
-                            if (!($flag = $each->save(false))) {
-                                break;
-                            }
-
                         }
                     }
 
                     if ($flag) {
                         $transaction->commit();
+                        Yii::$app->session->setFlash('success_message','Success! Role created.');
                         return $this->redirect(['index']);
                     } else {
                         $transaction->rollBack();

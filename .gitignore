@@ -14,6 +14,9 @@ nbproject
 .project
 .settings
 
+#visual studio project files
+.vscode
+
 # windows thumbnail cache
 Thumbs.db
 
@@ -33,3 +36,12 @@ phpunit.phar
 
 # vagrant runtime
 /.vagrant
+
+#yii config files
+main-local.php
+params-local.php
+test-local.php
+
+#upload folder
+/frontend/web/uploads
+/backend/web/uploads

@@ -27,6 +27,17 @@ class ThemesController extends Controller
                     'delete' => ['POST'],
                 ],
             ],
+            'access' => [
+                'class' => \yii\filters\AccessControl::className(),
+                'only' => ['index','create','update','view','delete'],
+                'rules' => [
+                  // admin and sub_admin is allowed for all actions
+                    [
+                        'allow' => true,
+                        'roles' => ['admin','sub_admin'],
+                    ],
+                ],
+            ],
         ];
     }
 

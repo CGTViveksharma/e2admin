@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Pages */
@@ -10,25 +11,20 @@ $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => 'Pages', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="pages-view">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
+<div class="box">
+  <div class = "box-header with-border">
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
+            'class' => 'btn btn-danger delete-request',
         ]) ?>
-    </p>
+        <?= Html::a('Go Back',Url::toRoute('index'),['class' => 'btn btn-default pull-right']) ?>
+  </div>
+  <div class="box-body">
+<div class="pages-view">
 
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
             'title',
             'content:ntext',
             'meta_title',
@@ -38,4 +34,5 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
+</div>
 </div>

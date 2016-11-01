@@ -15,8 +15,6 @@ use Yii;
  */
 class AuthItemChild extends \yii\db\ActiveRecord
 {
-    public $permission_name;
-    public $permission_desc;
     public $name;
     public $description;
     /**
@@ -33,11 +31,11 @@ class AuthItemChild extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['parent', 'child','permission_name','permission_desc'], 'required'],
-            [['parent', 'child','permission_name','permission_desc','name' ,'description'], 'string', 'max' => 64],
+            [['parent', 'child',], 'required'],
+            [['parent', 'child','name' ,'description'], 'string', 'max' => 64],
             [['parent'], 'exist', 'skipOnError' => true, 'targetClass' => AuthItem::className(), 'targetAttribute' => ['parent' => 'name']],
             [['child'], 'exist', 'skipOnError' => true, 'targetClass' => AuthItem::className(), 'targetAttribute' => ['child' => 'name']],
-            [['permission_name','permission_desc','name' ,'description'],'safe'],
+            [['name' ,'description'],'safe'],
         ];
     }
 
@@ -49,8 +47,6 @@ class AuthItemChild extends \yii\db\ActiveRecord
         return [
             'parent' => 'Parent',
             'child' => 'Child',
-            'permission_name' => 'Permission Name',
-            'permission_desc' => 'Permission Description',
             'name' => 'Name',
             'description' => 'Description'
         ];

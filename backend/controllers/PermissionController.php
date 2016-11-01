@@ -23,18 +23,19 @@ class PermissionController extends \yii\web\Controller
     public function behaviors()
     {
         return [
-        'access' => [
-        'class' => \yii\filters\AccessControl::className(),
-        'only' => ['index','create','update','view'],
-        'rules' => [
-        // allow authenticated users
-        [
-        'allow' => true,
-        'roles' => ['admin'],
-        ],
-        // everything else is denied
-        ],
-        ],
+            'access' => [
+                'class' => \yii\filters\AccessControl::className(),
+                'only' => ['index','create','update','view','delete'],
+                'rules' => [
+                    // allow authenticated users
+                    [
+                        'allow' => true,
+                        'actions' => ['index','create','update','view','delete'],
+                        'roles' => ['admin'],
+                    ],
+                    // everything else is denied
+                ],
+            ],
         ];
     }
     
@@ -73,7 +74,7 @@ class PermissionController extends \yii\web\Controller
                 //update permission item with old name and new permission object
                 Yii::$app->authManager->update($permission,$new_permission);
                 //set flash for success message
-                Yii::$app->session->setFlash('updatedPermission','Success! Permission updated.');
+                Yii::$app->session->setFlash('success_message','Success! Permission updated.');
                 //redirect to index
                 $this->redirect('index');
         }
@@ -109,6 +110,8 @@ class PermissionController extends \yii\web\Controller
                     $authManager->add($permission);
                 }
             }
+            //set flash for success message
+            Yii::$app->session->setFlash('success_message','Success! Permission created.');
             $this->redirect('index');
         }
         

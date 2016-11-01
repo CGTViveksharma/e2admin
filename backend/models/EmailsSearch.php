@@ -39,8 +39,9 @@ class EmailsSearch extends Emails
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search()
     {
+        $params = Yii::$app->request->post();
         $query = Emails::find();
 
         // add conditions that should always apply here

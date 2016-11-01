@@ -30,6 +30,12 @@ $(function() {
                             else
                                 window.location.href = jQuery('a.back-button').attr('href');
                         }
+                    }).fail(function(response) {
+                        bootbox.alert({
+                            message: "You are not allowed to perform this action.",
+                            className: 'modal-danger',
+                            backdrop: true
+                        });
                     });
                 }
             }

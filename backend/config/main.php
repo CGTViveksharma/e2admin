@@ -50,6 +50,7 @@ return [
             'showScriptName' => false,
             'rules' => [
                 'admin' => 'admin/site/login',
+                'cms/index' => 'pages/index'
             ],
         ],
     ],

@@ -99,6 +99,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        // echo \yii\helpers\Url::to('@app',true);exit;
         return $this->render('index');
     }
 

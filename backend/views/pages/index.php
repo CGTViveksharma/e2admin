@@ -10,29 +10,31 @@ use yii\widgets\Pjax;
 $this->title = 'Pages';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<div class="box box-primary">
+  <div class = "box-header with-border">
+    <h3 class="box-title"><?= Html::encode($this->title) ?></h3>
+    <?=Yii::$app->helper->showSuccessMessage();?>
+  </div>
+  <div class="box-body">
 <div class="pages-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
         <?= Html::a('Create Pages', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-<?php Pjax::begin(); ?>    <?= GridView::widget([
+<?php Pjax::begin(['clientOptions' => ['method' => 'post' ]]); ?>    <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
             'title',
-            'content:ntext',
+            'seoname',
             'meta_title',
             'meta_keywords',
-            // 'created_at',
-            // 'updated_at',
+            'meta_description',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
+        'tableOptions' => ['class' => 'table table-bordered table-hover']
     ]); ?>
-<?php Pjax::end(); ?></div>
+<?php Pjax::end(); ?></div></div>

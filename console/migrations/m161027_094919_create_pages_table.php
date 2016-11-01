@@ -16,8 +16,11 @@ class m161027_094919_create_pages_table extends Migration
             'id' => $this->primaryKey(),
             'title' => $this->string(100),
             'content' => $this->text(),
+            'seoname' => $this->string(100),
             'meta_title' => $this->string(100),
             'meta_keywords' => $this->string(100),
+            'meta_description' => $this->string(),
+            'status' => $this->smallInteger()->notNull()->defaultValue(1),
             'created_at' => $this->datetime(),
             'updated_at' => $this->timestamp(),
         ]);

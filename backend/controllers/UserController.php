@@ -31,17 +31,23 @@ class UserController extends Controller
                 ],
             ],
             'access' => [
-                        'class' => \yii\filters\AccessControl::className(),
-                        'only' => ['index','create','update','view'],
-                        'rules' => [
-                            // allow authenticated users
-                            [
-                                'allow' => true,
-                                'roles' => ['admin'],
-                            ],
-                            // everything else is denied
-                        ],
-                    ],          
+                'class' => \yii\filters\AccessControl::className(),
+                'only' => ['index','create','update','view','delete'],
+                'rules' => [
+                    // admin is allowed for all actions
+                    [
+                        'allow' => true,
+                        'actions' => ['index','create','update','view','delete'],
+                        'roles' => ['admin'],
+                    ],
+                    // sub admin is allowed to all actions except delete
+                     [
+                        'allow' => true,
+                        'actions' => ['index','create','update','view'],
+                        'roles' => ['sub_admin'],
+                    ],
+                ],
+            ],          
         ];
     }
 
@@ -100,7 +106,7 @@ class UserController extends Controller
             
             $model->password_hash = Yii::$app->security->generatePasswordHash($model->password);
             $model->auth_key =  Yii::$app->security->generateRandomString();
-            $model->status = 1;
+            $model->status = 10;
             $model->save(false);
             User::assignRolesAndSave($model);
             return $this->redirect(['view', 'id' => $model->id]);

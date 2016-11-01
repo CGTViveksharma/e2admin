@@ -53,7 +53,7 @@ class Helper extends Component{
 */
     public function showAlert($key, $class){
          if(Yii::$app->session->hasFlash($key)){
-          return Alert::widget([
+            return Alert::widget([
                 'options' => ['class' => 'alert alert-'.$class],
                 'body' => Yii::$app->session->getFlash($key)
             ]);
@@ -65,8 +65,8 @@ class Helper extends Component{
 *@return html 
 */
     public function showSuccessMessage(){
-         if(Yii::$app->session->hasFlash('success_message')){
-          return Alert::widget([
+         if(!empty(Yii::$app->session->getFlash('success_message'))){
+            return Alert::widget([
                 'options' => ['class' => 'alert alert-success'],
                 'body' => Yii::$app->session->getFlash('success_message')
             ]);
@@ -104,8 +104,8 @@ class Helper extends Component{
 *@return html 
 */
     public function showErrorMessage(){
-         if(Yii::$app->session->hasFlash('error_message')){
-          return Alert::widget([
+         if(!empty(Yii::$app->session->getFlash('error_message'))){
+            return Alert::widget([
                 'options' => ['class' => 'alert alert-danger'],
                 'body' => Yii::$app->session->getFlash('error_message')
             ]);

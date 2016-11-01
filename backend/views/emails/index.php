@@ -21,13 +21,12 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?php //echo Html::a('Create Emails', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-<?php Pjax::begin(); ?>    <?= GridView::widget([
+<?php Pjax::begin(['clientOptions' => ['method' => 'post']]); ?>    <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
             'title',
             'subject',
             'body:ntext',

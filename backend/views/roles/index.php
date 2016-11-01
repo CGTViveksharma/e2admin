@@ -14,6 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
   <div class="box box-primary">
   <div class = "box-header with-border">
     <h3 class="box-title"><?= Html::encode($this->title) ?></h3>
+     <?=Yii::$app->helper->showSuccessMessage();?>
   </div>
   <div class="box-body">
 <div class="user-index">

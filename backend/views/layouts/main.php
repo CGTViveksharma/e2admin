@@ -106,14 +106,11 @@ AppAsset::register($this);
         <li class=" treeview">
           <a href="<?=Url::toRoute('user/index')?>">
             <i class="fa fa-users"></i> <span>Users</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
           </a>
         </li>
         <li class=" treeview">
           <a href="#">
-            <i class="fa fa-users"></i> <span>Access Control</span>
+            <i class="fa fa-universal-access"></i> <span>Access Control</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -124,39 +121,18 @@ AppAsset::register($this);
           </ul>
         </li> 
         <li class=" treeview">
-          <a href="#">
-            <i class="fa fa-users"></i> <span>Themes</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li class=""><a href="<?=Url::toRoute('themes/create')?>"><i class="fa fa-circle-o"></i>Create </a></li>
-            <li><a href="<?=Url::toRoute('themes/index')?>"><i class="fa fa-circle-o"></i>List</a></li>
-          </ul>
-        </li>
-        <li class=" treeview">
           <a href="<?=Url::toRoute('cms/index')?>">
-            <i class="fa fa-users"></i> <span>CMS Manager</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
+            <i class="fa fa-pencil"></i> <span>CMS Manager</span>
           </a>
         </li>
         <li class=" treeview">
           <a href="<?=Url::toRoute('emails/index')?>">
             <i class="fa fa-envelope"></i> <span>Email Manager</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
           </a>
         </li>
         <li class=" treeview">
           <a href="<?=Url::toRoute('settings/index')?>">
-            <i class="fa fa-cog"></i> <span>Settings</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
+            <i class="fa fa-sliders"></i> <span>Settings</span>
           </a>
         </li>
       </ul>

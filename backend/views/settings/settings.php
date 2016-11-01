@@ -15,11 +15,12 @@ $this->params['breadcrumbs'][] = ['label' => 'Settings', 'url' => ['index']];
 <div class="box box-primary">
 <div class = "box-header with-border">
 <h3 class="box-title"><?=Html::encode($this->title);?></h3>
+<?=Yii::$app->helper->showErrorMessage(); ?>
+<?=Yii::$app->helper->showSuccessMessage(); ?>
 </div>
 <div class="box-body">
 <div class="settings  col-md-6 col-md-offset-3">
 
-    <?=Yii::$app->helper->renderErrors($model->errors); ?>
     <?php $form = ActiveForm::begin(
                                     [
                                         'id' => 'settings_form',
